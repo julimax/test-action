@@ -6,7 +6,7 @@ on:
       show_additional_input:
         description: 'Mostrar entrada adicional'
         required: false
-        default: 'true'  # Establecer el valor por defecto en 'true'
+        default: 'false'  # Establecer el valor por defecto en 'false'
 
 jobs:
   mi_job:
@@ -15,11 +15,13 @@ jobs:
       - name: Configurar entradas
         id: setup
         run: |
-          echo "::set-output name=show_additional_input::${{ github.event.inputs.show_additional_input || 'true' }}"
+          echo "::set-output name=show_additional_input::${{ github.event.inputs.show_additional_input || 'false' }}"
       - name: Preguntar por entrada adicional
         if: ${{ steps.setup.outputs.show_additional_input == 'true' }}
         run: |
-          echo "::set-output name=additional_input::true"
+          echo "::set-output name=additional_input::${{ github.event.inputs.additional_input }}"
+        env:
+          ADDITIONAL_INPUT: ${{ github.event.inputs.additional_input }}
       - name: Mi paso final
         run: |
-          echo "Entrada adicional: ${{ steps.ask_for_additional_input.outputs.additional_input }}"
+          echo "Entrada adicional: $ADDITIONAL_INPUT"
