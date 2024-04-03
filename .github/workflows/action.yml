@@ -3,21 +3,24 @@ name: Mi acción
 on:
   workflow_dispatch:
     inputs:
-      show_additional_input:
-        description: 'Mostrar entrada adicional'
-        required: false
-        default: 'false'  # Establecer el valor por defecto en 'false'
+      option:
+        description: 'Selecciona una opción'
+        required: true
+        default: 'A'
+        options:
+          - 'A'
+          - 'B'
 
 jobs:
   mi_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Configurar entradas
+      - name: Configurar entrada
         id: setup
         run: |
-          echo "::set-output name=show_additional_input::${{ github.event.inputs.show_additional_input || 'false' }}"
-      - name: Preguntar por entrada adicional
-        if: ${{ steps.setup.outputs.show_additional_input == 'true' }}
+          echo "::set-output name=option::${{ github.event.inputs.option }}"
+      - name: Mostrar segundo input
+        if: ${{ steps.setup.outputs.option == 'A' }}
         run: |
           echo "::set-output name=additional_input::${{ github.event.inputs.additional_input }}"
         env:
