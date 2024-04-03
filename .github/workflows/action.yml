@@ -1,0 +1,20 @@
+name: Mi acción
+
+on: [push]
+
+jobs:
+  mi_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configurar entradas
+        id: setup
+        run: |
+          echo "::set-output name=show_additional_input::${{ github.event.inputs.show_additional_input || 'false' }}"
+      - name: Preguntar por entrada adicional
+        id: ask_for_additional_input
+        if: ${{ steps.setup.outputs.show_additional_input == 'true' }}
+        run: |
+          echo "::set-output name=additional_input::true"
+      - name: Mi paso final
+        run: |
+          echo "Entrada adicional: ${{ steps.ask_for_additional_input.outputs.additional_input }}"
