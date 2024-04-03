@@ -1,6 +1,6 @@
 name: Mi acción
 
-on: [push]
+on: workflow_dispatch
 
 jobs:
   mi_job:
