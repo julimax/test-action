@@ -7,13 +7,14 @@ on:
         description: 'Selecciona una opción'
         required: true
         default: 'true'
-        type: choise
+        type: choice
         options:
           - 'true'
           - 'false'
       name:
         description: 'Ingresa un nombre si option es true'
         required: false
+        if: github.event.inputs.option == 'true'
 
 jobs:
   mi_job:
