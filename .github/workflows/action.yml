@@ -6,25 +6,22 @@ on:
       option:
         description: 'Selecciona una opción'
         required: true
-        default: 'A'
+        default: 'true'
+        type: choise
         options:
-          - 'A'
-          - 'B'
+          - 'true'
+          - 'false'
+      name:
+        description: 'Ingresa un nombre si option es true'
+        required: false
 
 jobs:
   mi_job:
     runs-on: ubuntu-latest
     steps:
-      - name: Configurar entrada
-        id: setup
-        run: |
-          echo "::set-output name=option::${{ github.event.inputs.option }}"
-      - name: Mostrar segundo input
-        if: ${{ steps.setup.outputs.option == 'A' }}
-        run: |
-          echo "::set-output name=additional_input::${{ github.event.inputs.additional_input }}"
-        env:
-          ADDITIONAL_INPUT: ${{ github.event.inputs.additional_input }}
-      - name: Mi paso final
-        run: |
-          echo "Entrada adicional: $ADDITIONAL_INPUT"
+      - name: Verificar opción
+        if: ${{ github.event.inputs.option == 'true' }}
+        run: echo "La opción es true"
+      - name: Mostrar nombre
+        if: ${{ github.event.inputs.option == 'true' && github.event.inputs.name }}
+        run: echo "El nombre ingresado es ${{ github.event.inputs.name }}"
