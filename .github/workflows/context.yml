@@ -29,3 +29,8 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJson(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+
+      - name: mis agregados
+        env:
+          CONTEXT: ${{ toJson(toJson(github.sha)) }}
+        run: echo "$CONTEXT"
