@@ -1,0 +1,25 @@
+name: test artifact 
+on: workflow_dispatch
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+     - name: create file
+       run: touch file.txt
+     - name: upload artifact
+       uses: actions/upload-artifact@v3
+       with:
+         name: file
+         path: ./file.txt
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+     - name: upload artifact
+       uses: actions/download-artifact@v3
+       with:
+         name: file
+
+     - name: check file
+       run: ls
