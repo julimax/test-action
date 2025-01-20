@@ -36,4 +36,4 @@ pipeline {
             echo 'Pipeline completado. Revisar logs para más detalles.'
         }
     }
-}
+} 
