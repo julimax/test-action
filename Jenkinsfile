@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-        stage('Despliegue') {
+        stage('Despliegue ultimatum') {
             steps {
                 echo 'Desplegando aplicación...'
                 echo 'Aplicación desplegada correctamente.'
